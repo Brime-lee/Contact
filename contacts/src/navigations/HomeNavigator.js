@@ -1,48 +1,24 @@
-import {SafeAreaView, View, Text} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-const Contacts = () => {
-  return (
-    <View>
-      <Text>Hi from contacts</Text>
-    </View>
-  );
-};
-const ContactDetail = () => {
-  return (
-    <View>
-      <Text>Hi from ContactDetails</Text>
-    </View>
-  );
-};
-const CreateContact = () => {
-  return (
-    <View>
-      <Text>Hi from CreateContacts</Text>
-    </View>
-  );
-};
-const Settings = () => {
-  return (
-    <View>
-      <Text>Hi from Settings</Text>
-    </View>
-  );
-};
+import {
+  CONTACT_DETAIL,
+  CONTACT_LIST,
+  CREATE_CONTACT,
+  SETTINGS,
+} from '../constants/routeNames';
+import Contacts from '../screens/Contacts';
+import ContactDetail from '../screens/ContactDetail';
+import CreateContact from '../screens/CreateContact';
+import Settings from '../screens/Settings';
 
 const HomeNavigator = () => {
   const HomeStack = createNativeStackNavigator();
   return (
-    <HomeStack.Navigator initialRouteName="Contact">
-      <HomeStack.Screen name="Contact" component={Contacts}></HomeStack.Screen>
-      <HomeStack.Screen
-        name="Contact Detail"
-        component={ContactDetail}></HomeStack.Screen>
-      <HomeStack.Screen
-        name="Create Contact"
-        component={CreateContact}></HomeStack.Screen>
-      <HomeStack.Screen name="Settings" component={Settings}></HomeStack.Screen>
+    <HomeStack.Navigator initialRouteName={CONTACT_LIST}>
+      <HomeStack.Screen name={CONTACT_LIST} component={Contacts} />
+      <HomeStack.Screen name={CONTACT_DETAIL} component={ContactDetail} />
+      <HomeStack.Screen name={CREATE_CONTACT} component={CreateContact} />
+      <HomeStack.Screen name={SETTINGS} component={Settings} />
     </HomeStack.Navigator>
   );
 };

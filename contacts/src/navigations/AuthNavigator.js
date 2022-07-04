@@ -1,28 +1,15 @@
-import {SafeAreaView, View, Text} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-const Login = () => {
-  return (
-    <View>
-      <Text>Hi from Login</Text>
-    </View>
-  );
-};
-const SignUp = () => {
-  return (
-    <View>
-      <Text>Hi from SignUp</Text>
-    </View>
-  );
-};
+import {LOGIN, REGISTER} from '../constants/routeNames';
+import Login from '../screens/Login';
+import Register from '../screens/Register';
 
 const AuthNavigator = () => {
   const AuthStack = createNativeStackNavigator();
   return (
     <AuthStack.Navigator>
-      <AuthStack.Screen name="Login" component={Login}></AuthStack.Screen>
-      <AuthStack.Screen name="Register" component={SignUp}></AuthStack.Screen>
+      <AuthStack.Screen name={LOGIN} component={Login} />
+      <AuthStack.Screen name={REGISTER} component={Register} />
     </AuthStack.Navigator>
   );
 };
