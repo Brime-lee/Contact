@@ -1,30 +1,47 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-
-import Container from '../../components/common/container/index';
-import Input from '../../components/common/input/index';
+import React, {useState, useEffect} from 'react';
+import {useRoute} from '@react-navigation/native';
+import {useContext} from 'react';
+import LoginComponent from '../../components/login';
+import loginUser from '../../context/actions/auth/loginUser';
+import {GlobalContext} from '../../context/Provider';
 
 const Login = () => {
-  const [value, onChangeText] = useState('Useless Placeholder');
-  return (
-    <SafeAreaView>
-      <Container>
-        <Input
-          label="Username"
-          onChangeText={text => onChangeText(text)}
-          value={value}
-        />
+  const [form, setForm] = useState({});
+  const [justSignedUp, setJustSignedUp] = useState(false);
+  const {params} = useRoute();
 
-        <Input
-          label="Password"
-          onChangeText={text => onChangeText(text)}
-          value={value}
-          icon={<Text>HIDE</Text>}
-          iconPosition="right"
-        />
-      </Container>
-    </SafeAreaView>
+  useEffect(() => {
+    if (params?.data) {
+      setJustSignedUp(true);
+      setForm({...form, userName: params.data.username});
+    }
+  }, [params]);
+
+  const {
+    authDispatch,
+    authState: {error, loading},
+  } = useContext(GlobalContext);
+
+  const onSubmit = () => {
+    if (form.userName && form.password) {
+      loginUser(form)(authDispatch);
+    }
+  };
+
+  const onChange = ({name, value}) => {
+    setJustSignedUp(false);
+    setForm({...form, [name]: value});
+  };
+
+  return (
+    <LoginComponent
+      onSubmit={onSubmit}
+      onChange={onChange}
+      form={form}
+      error={error}
+      loading={loading}
+      justSignedUp={justSignedUp}
+    />
   );
 };
 
