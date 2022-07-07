@@ -1,9 +1,8 @@
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
-// import {useFocusEffect} from '@react-navigation/native';
 import React, {useContext, useState} from 'react';
 import RegisterComponent from '../../components/signUp';
 import {LOGIN} from '../../constants/routeNames';
-// import register, {clearAuthState} from '../../context/actions/auth/register';
+import register, {clearAuthState} from '../../context/actions/auth/register';
 import {GlobalContext} from '../../context/Provider';
 
 const Register = () => {
@@ -15,15 +14,15 @@ const Register = () => {
     authState: {error, loading, data},
   } = useContext(GlobalContext);
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     return () => {
-  //       if (data || error) {
-  //         clearAuthState()(authDispatch);
-  //       }
-  //     };
-  //   }, [data, error]),
-  // );
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        if (data || error) {
+          clearAuthState()(authDispatch);
+        }
+      };
+    }, [data, error]),
+  );
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
